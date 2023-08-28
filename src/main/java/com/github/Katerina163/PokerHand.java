@@ -18,6 +18,10 @@ public class PokerHand implements Comparable<PokerHand> {
         combination = CheckingCombination.checkCards(cards);
     }
 
+    public Combination getCombination() {
+        return combination;
+    }
+
     @Override
     public int compareTo(PokerHand ph) {
         return this.combination.compareTo(ph.combination);
