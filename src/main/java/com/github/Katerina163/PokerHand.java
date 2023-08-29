@@ -2,18 +2,18 @@ package com.github.Katerina163;
 
 public class PokerHand implements Comparable<PokerHand> {
     private final Combination combination;
-    private final String[] cards;
+    private final Card[] cards = new Card[5];
 
     public PokerHand(String hand) {
         if (hand.length() != 14) {
             throw new IllegalArgumentException("Неверный набор карт");
         }
-        cards = hand.split(" ");
-        if (cards.length != 5) {
+        String[] handCard = hand.split(" ");
+        if (handCard.length != 5) {
             throw new IllegalArgumentException("Неверное количество карт");
         }
-        for (var card : cards) {
-            ValidationCard.validate(card);
+        for (int i = 0; i < cards.length; i++) {
+            cards[i] = new Card(handCard[i]);
         }
         combination = CheckingCombination.checkCards(cards);
     }

@@ -12,12 +12,11 @@ public class ValidationCard {
         if (card.length() != 2) {
             throw new IllegalArgumentException("Неверная карта " + card);
         }
-        var chars = card.toCharArray();
-        if (!FACE_VALUE.contains(chars[0])) {
-            throw new IllegalArgumentException("Неверный номинал карты " + chars[0]);
+        if (!FACE_VALUE.contains(card.charAt(0))) {
+            throw new IllegalArgumentException("Неверный номинал карты " + card.charAt(0));
         }
-        if (!SUIT.contains(chars[1])) {
-            throw new IllegalArgumentException("Неверная масть " + chars[1]);
+        if (!SUIT.contains(card.charAt(1))) {
+            throw new IllegalArgumentException("Неверная масть " + card.charAt(1));
         }
     }
 }

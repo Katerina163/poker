@@ -9,7 +9,7 @@ public class CheckingCombination {
             '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'
     );
 
-    public static Combination checkCards(String[] cards) {
+    public static Combination checkCards(Card[] cards) {
         if (straightFlush(cards)) {
             return Combination.STRAIGHT_FLUSH;
         } else if (four(cards)) {
@@ -31,22 +31,22 @@ public class CheckingCombination {
         }
     }
 
-    private static boolean straightFlush(String[] cards) {
+    private static boolean straightFlush(Card[] cards) {
         return flush(cards) && straight(cards);
     }
 
-    private static boolean four(String[] cards) {
+    private static boolean four(Card[] cards) {
         return count(cards, 4);
     }
 
-    private static boolean fullHouse(String[] cards) {
+    private static boolean fullHouse(Card[] cards) {
         char twoValue = 0;
         for (int i = 1; i < cards.length; i++) {
-            if (cards[i].charAt(0) != cards[0].charAt(0)) {
+            if (cards[i].getFaceValue() != cards[0].getFaceValue()) {
                 if (twoValue == 0) {
-                    twoValue = cards[i].charAt(0);
+                    twoValue = cards[i].getFaceValue();
                 } else {
-                    if (cards[i].charAt(0) != twoValue) {
+                    if (cards[i].getFaceValue() != twoValue) {
                         return false;
                     }
                 }
@@ -55,24 +55,24 @@ public class CheckingCombination {
         return true;
     }
 
-    private static boolean flush(String[] cards) {
+    private static boolean flush(Card[] cards) {
         for (var card : cards) {
-            if (card.charAt(1) != cards[0].charAt(1)) {
+            if (card.getSuit() != cards[0].getSuit()) {
                 return false;
             }
         }
         return true;
     }
 
-    private static boolean straight(String[] cards) {
+    private static boolean straight(Card[] cards) {
         Set<Character> set = new HashSet<>();
         char ch = '0';
         for (var c : FACE_VALUE) {
-            for (String card : cards) {
-                set.add(card.charAt(0));
-                if (c == card.charAt(0)) {
+            for (var card : cards) {
+                set.add(card.getFaceValue());
+                if (c == card.getFaceValue()) {
                     if (ch == '0') {
-                        ch = card.charAt(0);
+                        ch = card.getFaceValue();
                     }
                 }
             }
@@ -86,27 +86,27 @@ public class CheckingCombination {
         return true;
     }
 
-    private static boolean three(String[] cards) {
+    private static boolean three(Card[] cards) {
         return count(cards, 3);
     }
 
-    private static boolean twoPair(String[] cards) {
+    private static boolean twoPair(Card[] cards) {
         char one = '0';
         char two = '0';
         char three = '0';
         for (var card : cards) {
             if (one == '0') {
-                one = card.charAt(0);
+                one = card.getFaceValue();
             } else {
-                if (card.charAt(0) != one) {
+                if (card.getFaceValue() != one) {
                     if (two == '0') {
-                        two = card.charAt(0);
+                        two = card.getFaceValue();
                     } else {
-                        if (two != card.charAt(0)) {
+                        if (two != card.getFaceValue()) {
                             if (three == '0') {
-                                three = card.charAt(0);
+                                three = card.getFaceValue();
                             } else {
-                                if (three != card.charAt(0)) {
+                                if (three != card.getFaceValue()) {
                                     return false;
                                 }
                             }
@@ -118,15 +118,15 @@ public class CheckingCombination {
         return true;
     }
 
-    private static boolean pair(String[] cards) {
+    private static boolean pair(Card[] cards) {
         return count(cards, 2);
     }
 
-    private static boolean count(String[] cards, int quantity) {
+    private static boolean count(Card[] cards, int quantity) {
         for (int i = 0; i <= 5 - quantity; i++) {
             int quant = 1;
             for (int j = i + 1; j < cards.length; j++) {
-                if (cards[j].charAt(0) == cards[i].charAt(0)) {
+                if (cards[j].getFaceValue() == cards[i].getFaceValue()) {
                     quant++;
                 }
             }
