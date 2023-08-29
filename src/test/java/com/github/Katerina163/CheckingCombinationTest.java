@@ -8,154 +8,176 @@ import static org.hamcrest.Matchers.is;
 class CheckingCombinationTest {
     @Test
     public void whenStraightFlushInOrder() {
-        String[] cards = {"2S", "3S", "4S", "5S", "6S"};
+        Card[] cards = {
+                new Card("2S"), new Card("3S"), new Card("4S"), new Card("5S"), new Card("6S")};
         var result = CheckingCombination.checkCards(cards);
         assertThat(result, is(Combination.STRAIGHT_FLUSH));
     }
 
     @Test
     public void whenStraightFlush() {
-        String[] cards = {"KS", "JS", "9S", "TS", "QS"};
+        Card[] cards = {
+                new Card("KS"), new Card("JS"), new Card("9S"), new Card("TS"), new Card("QS")};
         var result = CheckingCombination.checkCards(cards);
         assertThat(result, is(Combination.STRAIGHT_FLUSH));
     }
 
     @Test
     public void whenFourInOrder() {
-        String[] cards = {"6S", "6H", "6D", "6C", "5S"};
+        Card[] cards = {
+                new Card("6S"), new Card("6H"), new Card("6D"), new Card("6C"), new Card("5S")};
         var result = CheckingCombination.checkCards(cards);
         assertThat(result, is(Combination.FOUR_OF_A_KIND));
     }
 
     @Test
     public void whenFourAndDifferentFirst() {
-        String[] cards = {"5S", "6S", "6H", "6D", "6C"};
+        Card[] cards = {
+                new Card("5S"), new Card("6S"), new Card("6H"), new Card("6D"), new Card("6C")};
         var result = CheckingCombination.checkCards(cards);
         assertThat(result, is(Combination.FOUR_OF_A_KIND));
     }
 
     @Test
     public void whenFourAndDifferentInMiddle() {
-        String[] cards = {"6S", "6H", "5S", "6D", "6C"};
+        Card[] cards = {
+                new Card("6S"), new Card("6H"), new Card("5S"), new Card("6D"), new Card("6C")};
         var result = CheckingCombination.checkCards(cards);
         assertThat(result, is(Combination.FOUR_OF_A_KIND));
     }
 
     @Test
     public void whenFullHouse() {
-        String[] cards = {"6S", "4D", "6H", "4C", "6C"};
+        Card[] cards = {
+                new Card("6S"), new Card("4D"), new Card("6H"), new Card("4C"), new Card("6C")};
         var result = CheckingCombination.checkCards(cards);
         assertThat(result, is(Combination.FULL_HOUSE));
     }
 
     @Test
     public void whenFullHouseFirstThree() {
-        String[] cards = {"6S", "6H", "6C", "4D", "4C"};
+        Card[] cards = {
+                new Card("6S"), new Card("6H"), new Card("6C"), new Card("4D"), new Card("4C")};
         var result = CheckingCombination.checkCards(cards);
         assertThat(result, is(Combination.FULL_HOUSE));
     }
 
     @Test
     public void whenFullHouseLastThree() {
-        String[] cards = {"4S", "4H", "5S", "5D", "5C"};
+        Card[] cards = {
+                new Card("4S"), new Card("4H"), new Card("5S"), new Card("5D"), new Card("5C")};
         var result = CheckingCombination.checkCards(cards);
         assertThat(result, is(Combination.FULL_HOUSE));
     }
 
     @Test
     public void whenStraightInOrder() {
-        String[] cards = {"2S", "3H", "4D", "5C", "6S"};
+        Card[] cards = {
+                new Card("2S"), new Card("3H"), new Card("4D"), new Card("5C"), new Card("6S")};
         var result = CheckingCombination.checkCards(cards);
         assertThat(result, is(Combination.STRAIGHT));
     }
 
     @Test
     public void whenStraight() {
-        String[] cards = {"TS", "6H", "8D", "7C", "9S"};
+        Card[] cards = {
+                new Card("TS"), new Card("6H"), new Card("8D"), new Card("7C"), new Card("9S")};
         var result = CheckingCombination.checkCards(cards);
         assertThat(result, is(Combination.STRAIGHT));
     }
 
     @Test
     public void whenThreeInOrder() {
-        String[] cards = {"6S", "6H", "6D", "4C", "5S"};
+        Card[] cards = {
+                new Card("6S"), new Card("6H"), new Card("6D"), new Card("4C"), new Card("5S")};
         var result = CheckingCombination.checkCards(cards);
         assertThat(result, is(Combination.THREE_OF_A_KIND));
     }
 
     @Test
     public void whenThreeAndDifferentFirst() {
-        String[] cards = {"5S", "4S", "6H", "6D", "6C"};
+        Card[] cards = {
+                new Card("5S"), new Card("4S"), new Card("6H"), new Card("6D"), new Card("6C")};
         var result = CheckingCombination.checkCards(cards);
         assertThat(result, is(Combination.THREE_OF_A_KIND));
     }
 
     @Test
     public void whenThreeAndDifferentInMiddle() {
-        String[] cards = {"6S", "6H", "5S", "4D", "6C"};
+        Card[] cards = {
+                new Card("6S"), new Card("6H"), new Card("5S"), new Card("4D"), new Card("6C")};
         var result = CheckingCombination.checkCards(cards);
         assertThat(result, is(Combination.THREE_OF_A_KIND));
     }
 
     @Test
     public void whenTwoPairFirst() {
-        String[] cards = {"KS", "KH", "4D", "4C", "5S"};
+        Card[] cards = {
+                new Card("KS"), new Card("KH"), new Card("4D"), new Card("4C"), new Card("5S")};
         var result = CheckingCombination.checkCards(cards);
         assertThat(result, is(Combination.TWO_PAIRS));
     }
 
     @Test
     public void whenTwoPairLast() {
-        String[] cards = {"5S", "6S", "6H", "AD", "AC"};
+        Card[] cards = {
+                new Card("5S"), new Card("6S"), new Card("6H"), new Card("AD"), new Card("AC")};
         var result = CheckingCombination.checkCards(cards);
         assertThat(result, is(Combination.TWO_PAIRS));
     }
 
     @Test
     public void whenTwoPairMiddle() {
-        String[] cards = {"2S", "5H", "TS", "TD", "5C"};
+        Card[] cards = {
+                new Card("2S"), new Card("5H"), new Card("TS"), new Card("TD"), new Card("5C")};
         var result = CheckingCombination.checkCards(cards);
         assertThat(result, is(Combination.TWO_PAIRS));
     }
 
     @Test
     public void whenTwoPair() {
-        String[] cards = {"6S", "3H", "5S", "6D", "5C"};
+        Card[] cards = {
+                new Card("6S"), new Card("3H"), new Card("5S"), new Card("6D"), new Card("5C")};
         var result = CheckingCombination.checkCards(cards);
         assertThat(result, is(Combination.TWO_PAIRS));
     }
 
     @Test
     public void whenPairFirst() {
-        String[] cards = {"KS", "KH", "6D", "4C", "5S"};
+        Card[] cards = {
+                new Card("KS"), new Card("KH"), new Card("6D"), new Card("4C"), new Card("5S")};
         var result = CheckingCombination.checkCards(cards);
         assertThat(result, is(Combination.PAIR));
     }
 
     @Test
     public void whenPairLast() {
-        String[] cards = {"5S", "4S", "6H", "AD", "AC"};
+        Card[] cards = {
+                new Card("5S"), new Card("4S"), new Card("6H"), new Card("AD"), new Card("AC")};
         var result = CheckingCombination.checkCards(cards);
         assertThat(result, is(Combination.PAIR));
     }
 
     @Test
     public void whenPairMiddle() {
-        String[] cards = {"2S", "5H", "TS", "TD", "6C"};
+        Card[] cards = {
+                new Card("2S"), new Card("5H"), new Card("TS"), new Card("TD"), new Card("6C")};
         var result = CheckingCombination.checkCards(cards);
         assertThat(result, is(Combination.PAIR));
     }
 
     @Test
     public void whenPair() {
-        String[] cards = {"6S", "3H", "5S", "6D", "8C"};
+        Card[] cards = {
+                new Card("6S"), new Card("3H"), new Card("5S"), new Card("6D"), new Card("8C")};
         var result = CheckingCombination.checkCards(cards);
         assertThat(result, is(Combination.PAIR));
     }
 
     @Test
     public void whenHighCard() {
-        String[] cards = {"10S", "4H", "7S", "TD", "2C"};
+        Card[] cards = {
+                new Card("3S"), new Card("4H"), new Card("7S"), new Card("TD"), new Card("2C")};
         var result = CheckingCombination.checkCards(cards);
         assertThat(result, is(Combination.HIGH_CARD));
     }

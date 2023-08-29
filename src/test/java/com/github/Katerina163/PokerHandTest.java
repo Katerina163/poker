@@ -8,6 +8,7 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class PokerHandTest {
     private PokerHand highCart = new PokerHand("TS 4H 7D KC 2S");
@@ -35,15 +36,15 @@ class PokerHandTest {
 
         Collections.sort(hands);
 
-        assertThat(hands.get(0), is(straightFlush));
-        assertThat(hands.get(1), is(four));
-        assertThat(hands.get(2), is(fullHouse));
-        assertThat(hands.get(3), is(flush));
+        assertThat(hands.get(0), is(highCart));
+        assertThat(hands.get(1), is(pair));
+        assertThat(hands.get(2), is(twoPairs));
+        assertThat(hands.get(3), is(three));
         assertThat(hands.get(4), is(straight));
-        assertThat(hands.get(5), is(three));
-        assertThat(hands.get(6), is(twoPairs));
-        assertThat(hands.get(7), is(pair));
-        assertThat(hands.get(8), is(highCart));
+        assertThat(hands.get(5), is(flush));
+        assertThat(hands.get(6), is(fullHouse));
+        assertThat(hands.get(7), is(four));
+        assertThat(hands.get(8), is(straightFlush));
     }
 
     @Test
@@ -57,5 +58,21 @@ class PokerHandTest {
         assertThat(fullHouse.getCombination(), is(Combination.FULL_HOUSE));
         assertThat(four.getCombination(), is(Combination.FOUR_OF_A_KIND));
         assertThat(straightFlush.getCombination(), is(Combination.STRAIGHT_FLUSH));
+    }
+
+    @Test
+    public void whenEmptyHand() throws IllegalArgumentException {
+        Throwable thr = assertThrows(IllegalArgumentException.class, () -> {
+            var poker = new PokerHand("");
+        });
+        assertThat(thr.getMessage(), is("Неверный набор карт"));
+    }
+
+    @Test
+    public void whenIncorrectHand() throws IllegalArgumentException {
+        Throwable thr = assertThrows(IllegalArgumentException.class, () -> {
+            var poker = new PokerHand("2H 3Hy4H 5H 6H");
+        });
+        assertThat(thr.getMessage(), is("Неверное количество карт"));
     }
 }
